@@ -279,7 +279,7 @@ const ChatPage: React.FC = () => {
           },
           body: JSON.stringify({
             star: "pdteras",
-            model: "gpt-4-turbo",
+            model: "gpt-4o",
             temperature: 1,
             id: idUserSession,
             message: messageInput,
