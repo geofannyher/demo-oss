@@ -2,18 +2,16 @@ import { TChatProps } from "../utils/types/chat.type";
 import ai from "../assets/ai.jpg";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { textToSpeech } from "../services/api/elevenlabs.service";
 import { useEffect, useState } from "react";
-import { supabase } from "../services/supabase/connection";
 
-export const AiChat = ({ message, isLastAIChat, audioUrl }: TChatProps) => {
-  const [audioSrc, setAudioSrc] = useState("");
+export const AiChat = ({ message }: TChatProps) => {
   const [displayedMessage, setDisplayedMessage] = useState("");
-  const [switchValue, setSwitchValue] = useState();
-  const [status, setStatus] = useState(false);
 
   useEffect(() => {
-    setDisplayedMessage(""); // Reset displayed message on component mount or update
+    if (typeof message !== "string") {
+      return;
+    }
+    setDisplayedMessage("");
     let currentIndex = 0;
     const interval = setInterval(() => {
       if (currentIndex <= message.length) {
@@ -22,53 +20,11 @@ export const AiChat = ({ message, isLastAIChat, audioUrl }: TChatProps) => {
       } else {
         clearInterval(interval);
       }
-    }, 5); // Adjust the interval for speed of text rendering
+    }, 5);
 
-    return () => clearInterval(interval); // Clean up on component unmount
+    return () => clearInterval(interval);
   }, [message]);
 
-  // console.log(audioUrl);
-  useEffect(() => {
-    fetchSwitchValue();
-    // Panggil fetchTextToSpeech hanya saat pesan terakhir dari AIChat pertama kali ditampilkan
-    if (isLastAIChat && !audioSrc && switchValue && audioUrl) {
-      fetchTextToSpeech();
-    }
-  }, [isLastAIChat, audioSrc, switchValue, audioUrl]);
-
-  const fetchTextToSpeech = async () => {
-    if (audioUrl !== undefined) {
-      try {
-        setStatus(true);
-        const result: any = await textToSpeech(audioUrl);
-        const audioBlob = new Blob([result.data], { type: "audio/mpeg" });
-        const audioSrc = URL.createObjectURL(audioBlob);
-        setAudioSrc(audioSrc);
-        setStatus(false);
-      } catch (error) {
-        console.error("Failed to convert text to speech:");
-      }
-    } else {
-      console.log("text undifined");
-    }
-  };
-
-  const fetchSwitchValue = async () => {
-    try {
-      const { data, error } = await supabase
-        .from("adminsettings")
-        .select("switch")
-        .single();
-      if (error) {
-        throw error;
-      }
-      if (data) {
-        setSwitchValue(data.switch);
-      }
-    } catch (error: any) {
-      console.error("Error fetching switch value:", error?.message);
-    }
-  };
   return (
     <div className="flex justify-start py-2">
       <div className="flex items-start">
@@ -91,16 +47,6 @@ export const AiChat = ({ message, isLastAIChat, audioUrl }: TChatProps) => {
             >
               {displayedMessage}
             </Markdown>
-            {status
-              ? "Loading Audio..."
-              : isLastAIChat &&
-                switchValue &&
-                audioUrl && (
-                  <audio controls>
-                    <source src={audioSrc} type="audio/mpeg" />
-                    Your browser does not support the audio element.
-                  </audio>
-                )}
           </div>
         </div>
       </div>

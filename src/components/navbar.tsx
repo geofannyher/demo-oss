@@ -1,6 +1,7 @@
 import ai from "../assets/ai.jpg";
 import { clearSession } from "../shared/Session";
 import { useNavigate } from "react-router-dom";
+import { IoMdLogOut } from "react-icons/io";
 const Navbar = () => {
   const navigate = useNavigate();
   const handleLogout = async () => {
@@ -28,8 +29,9 @@ const Navbar = () => {
             <div className="col-span-6 flex justify-end items-center  md:col-span-6 lg:col-span-6">
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 rounded-md text-sm bg-gray-500 hover:bg-gray-600 transition duration-500"
+                className="px-4 py-2 flex gap-2 justify-center items-center rounded-md text-xs text-white font-semibold bg-gray-500 hover:bg-gray-600 transition duration-500"
               >
+                <IoMdLogOut size={18} />
                 Log out
               </button>
             </div>
