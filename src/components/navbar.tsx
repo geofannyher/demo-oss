@@ -1,13 +1,5 @@
 import ai from "../assets/image.jpeg";
-import { clearSession } from "../shared/Session";
-import { useNavigate } from "react-router-dom";
-import { IoMdLogOut } from "react-icons/io";
 const Navbar = () => {
-  const navigate = useNavigate();
-  const handleLogout = async () => {
-    clearSession();
-    navigate("/");
-  };
   return (
     <div className="bg-mainColor rounded-bl-xl rounded-br-xl  shadow-md">
       <nav className="container mx-auto z-20 w-full">
@@ -26,7 +18,7 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
-            <div className="col-span-6 flex justify-end items-center  md:col-span-6 lg:col-span-6">
+            {/* <div className="col-span-6 flex justify-end items-center  md:col-span-6 lg:col-span-6">
               <button
                 onClick={handleLogout}
                 className="px-4 py-2 flex gap-2 justify-center items-center rounded-md text-xs text-white font-semibold bg-gray-500 hover:bg-gray-600 transition duration-500"
@@ -34,7 +26,7 @@ const Navbar = () => {
                 <IoMdLogOut size={18} />
                 Log out
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </nav>
