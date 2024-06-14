@@ -19,7 +19,7 @@ export const changelocalid = async ({ newUserId }: any) => {
     const data = await supabase
       .from("user")
       .update({ localid: newUserId })
-      .eq("uuid", 4);
+      .eq("uuid", 1);
     return data;
   } catch (error: any) {
     return error.message;

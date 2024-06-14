@@ -1,5 +1,5 @@
 import { TChatProps } from "../utils/types/chat.type";
-import ai from "../assets/ai.jpg";
+import ai from "../assets/image.jpeg";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useEffect, useState } from "react";
@@ -28,7 +28,7 @@ export const AiChat = ({ message }: TChatProps) => {
   return (
     <div className="flex justify-start py-2">
       <div className="flex items-start">
-        <div className="flex gap-2 items-start">
+        <div className="flex gap-2 items-start ">
           <img
             src={ai}
             className="h-10 w-10 items-center justify-center rounded-full object-cover"

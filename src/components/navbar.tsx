@@ -1,4 +1,4 @@
-import ai from "../assets/ai.jpg";
+import ai from "../assets/image.jpeg";
 import { clearSession } from "../shared/Session";
 import { useNavigate } from "react-router-dom";
 import { IoMdLogOut } from "react-icons/io";
@@ -22,7 +22,7 @@ const Navbar = () => {
                   />
                 </div>
                 <div className="flex flex-col text-white">
-                  <h1 className="font-semibold">Erastus Sabdono</h1>
+                  <h1 className="font-semibold">Article Extractor - Llama</h1>
                 </div>
               </div>
             </div>
