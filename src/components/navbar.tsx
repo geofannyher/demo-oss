@@ -1,5 +1,29 @@
+import { useEffect, useState } from "react";
 import ai from "../assets/image.jpeg";
+import { Form, Select } from "antd";
+import { getSession, saveSession } from "../shared/Session";
+
 const Navbar = () => {
+  const [star, setStar] = useState<string>("gpt_article");
+  const { Item } = Form;
+
+  useEffect(() => {
+    const savedStar = getSession();
+    if (savedStar) {
+      setStar(savedStar);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (star) {
+      saveSession(star);
+    }
+  }, [star]);
+
+  const handleStarChange = (value: string) => {
+    setStar(value);
+  };
+
   return (
     <div className="bg-mainColor rounded-bl-xl rounded-br-xl  shadow-md">
       <nav className="container mx-auto z-20 w-full">
@@ -14,19 +38,25 @@ const Navbar = () => {
                   />
                 </div>
                 <div className="flex flex-col text-white">
-                  <h1 className="font-semibold">Article Extractor - Llama</h1>
+                  <h1 className="font-semibold">Article Extractor - GPT</h1>
                 </div>
               </div>
             </div>
-            {/* <div className="col-span-6 flex justify-end items-center  md:col-span-6 lg:col-span-6">
-              <button
-                onClick={handleLogout}
-                className="px-4 py-2 flex gap-2 justify-center items-center rounded-md text-xs text-white font-semibold bg-gray-500 hover:bg-gray-600 transition duration-500"
-              >
-                <IoMdLogOut size={18} />
-                Log out
-              </button>
-            </div> */}
+            <div className="col-span-6 flex justify-end items-center  md:col-span-6 lg:col-span-6">
+              <Item name="model" className="w-full md:w-auto px-2">
+                <Select
+                  size="large"
+                  placeholder="select Model"
+                  // defaultValue={star}
+                  onChange={handleStarChange}
+                  value={star}
+                  options={[
+                    { value: "gpt_article", label: "Gpt Article" },
+                    { value: "gpt_socmed", label: "Gpt Socmed" },
+                  ]}
+                />
+              </Item>
+            </div>
           </div>
         </div>
       </nav>
