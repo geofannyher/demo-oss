@@ -15,7 +15,7 @@ const ChatPage: React.FC = () => {
   const [api, context] = notification.useNotification();
   const [isLoading, setIsLoading] = useState(false);
   const [idUserSession, setId] = useState("");
-
+  const session = getSession();
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
       if (
@@ -40,15 +40,24 @@ const ChatPage: React.FC = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      setMessages([
-        {
-          text: "Silakan kirimkan artikel berita disini, agar bisa segera kami proses",
-          sender: "ai",
-        },
-      ]);
+      if (session == "gpt_article") {
+        setMessages([
+          {
+            text: "Silakan kirimkan artikel berita disini, agar bisa segera kami proses",
+            sender: "ai",
+          },
+        ]);
+      } else {
+        setMessages([
+          {
+            text: "Silakan kirimkan konten media sosial disini, agar bisa segera kami proses.",
+            sender: "ai",
+          },
+        ]);
+      }
     }, 700);
     getIdUser();
-  }, []);
+  }, [session]);
 
   useEffect(() => {
     scrollToBottom();

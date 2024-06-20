@@ -4,7 +4,7 @@ import { Form, Select } from "antd";
 import { getSession, saveSession } from "../shared/Session";
 
 const Navbar = () => {
-  const [star, setStar] = useState<string>("gpt_article");
+  const [star, setStar] = useState<string>(() => getSession() || "gpt_article");
   const { Item } = Form;
 
   useEffect(() => {
@@ -22,6 +22,7 @@ const Navbar = () => {
 
   const handleStarChange = (value: string) => {
     setStar(value);
+    location.reload();
   };
 
   return (
@@ -45,11 +46,10 @@ const Navbar = () => {
             <div className="col-span-6 flex justify-end items-center  md:col-span-6 lg:col-span-6">
               <Item name="model" className="w-full md:w-auto px-2">
                 <Select
+                  defaultValue={star}
                   size="large"
-                  placeholder="select Model"
-                  // defaultValue={star}
-                  onChange={handleStarChange}
                   value={star}
+                  onChange={handleStarChange}
                   options={[
                     { value: "gpt_article", label: "Article" },
                     { value: "gpt_socmed", label: "Socmed" },
