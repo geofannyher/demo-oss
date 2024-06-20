@@ -87,7 +87,7 @@ const ChatPage: React.FC = () => {
       message: messageInput,
       star: idSession ? idSession : "",
       id: idUserSession ? idUserSession : "",
-      model: "gpt-4-turbo-preview",
+      model: "gpt-4o",
       is_rag: "false",
     });
 
