@@ -38,7 +38,7 @@ const Navbar = () => {
                   />
                 </div>
                 <div className="flex flex-col text-white">
-                  <h1 className="font-semibold">Article Extractor - GPT</h1>
+                  <h1 className="font-semibold">Article Extractor</h1>
                 </div>
               </div>
             </div>
@@ -51,8 +51,8 @@ const Navbar = () => {
                   onChange={handleStarChange}
                   value={star}
                   options={[
-                    { value: "gpt_article", label: "Gpt Article" },
-                    { value: "gpt_socmed", label: "Gpt Socmed" },
+                    { value: "gpt_article", label: "Article" },
+                    { value: "gpt_socmed", label: "Socmed" },
                   ]}
                 />
               </Item>
