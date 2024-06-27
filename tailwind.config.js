@@ -20,7 +20,7 @@ export default {
     },
     extend: {
       colors: {
-        mainColor: "#182551",
+        mainColor: "#9b1f15",
         secondColor: "#f5f7fc",
         thirdColor: "#ED0266",
         hoverBtn: "#101730",
