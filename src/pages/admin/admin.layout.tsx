@@ -6,7 +6,7 @@ const AdminLayout = () => {
   const isAdmin = localStorage.getItem("role");
   const navigate = useNavigate();
   const checkAdmin = () => {
-    if (isAdmin !== "admin" || isAdmin == undefined) {
+    if (isAdmin !== "adminoss" || isAdmin == undefined) {
       navigate("/adminlogin");
     }
   };
