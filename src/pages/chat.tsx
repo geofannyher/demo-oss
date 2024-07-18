@@ -9,6 +9,9 @@ import { getIdSession } from "../services/supabase/session.service";
 import { chatRes } from "../services/api/chat.services";
 import notificationSound from "../assets/notif.mp3";
 import { getSession } from "../shared/Session";
+import axios from "axios";
+import { cleanString } from "../utils/cleanString";
+import { supabase } from "../services/supabase/connection";
 // import axios from "axios";
 // import { supabase } from "../services/supabase/connection";
 // import { cleanString } from "../utils/cleanString";
@@ -83,27 +86,28 @@ const ChatPage: React.FC = () => {
       is_rag: "false",
     });
 
-    // const res = await axios.post(import.meta.env.VITE_APP_CHATT + "history", {
-    //   id: idUserSession,
-    //   star: "anika_bkpn",
-    // });
+    const res = await axios.post(import.meta.env.VITE_APP_CHATT + "history", {
+      id: idUserSession,
+      star: "anika_bkpn",
+    });
 
-    // console.log(res, "res");
-    // const cleanedKonteks = cleanString(res?.data?.data?.history[1]?.content);
+    const cleanedKonteks = cleanString(res?.data?.data?.history[1]?.content);
 
-    // await supabase.from("chats").upsert([
-    //   {
-    //     text: messageInput,
-    //     sender: "user",
-    //     localid: idUserSession,
-    //   },
-    //   {
-    //     text: cleanedKonteks || "AI tidak merespon",
-    //     sender: "ai",
-    //     konteks: cleanedKonteks,
-    //     localid: idUserSession,
-    //   },
-    // ]);
+    await supabase.from("chats").upsert([
+      {
+        idref: 1,
+        text: messageInput,
+        sender: "user",
+        localid: idUserSession,
+      },
+      {
+        idref: 1,
+        text: resNew?.data?.data || "AI tidak merespon",
+        sender: "ai",
+        konteks: cleanedKonteks,
+        localid: idUserSession,
+      },
+    ]);
 
     if (resNew && resNew?.data?.data) {
       setMessages((prevMessages: any) => {

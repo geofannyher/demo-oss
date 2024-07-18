@@ -5,7 +5,7 @@ export const getHistoryChats = async () => {
     const data = await supabase
       .from("chats")
       .select("*")
-      .eq("id", 1)
+      .eq("idref", 1)
       .order("created_at", { ascending: true });
     if (data) {
       return data;
